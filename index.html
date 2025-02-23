@@ -196,7 +196,7 @@
 
         <div id="dealer-card"><img id="dealer-card-image" class="card-image" src=""></div>
         <div id="player-cards"><img id="player-card1-image" class="card-image" src=""> <img id="player-card2-image" class="card-image" src=""></div>
-        <div id="hand-type">Hand Type: ?</div> 
+         <!-- <div id="hand-type">Hand Type: ?</div>  -->
         <div class="button-container">
             <button onclick="makeDecision('hit')">Hit</button>
             <button onclick="makeDecision('stand')">Stand</button>
@@ -362,7 +362,7 @@
             document.getElementById('player-card1-image').src = getCardImageUrl(card1, suit1);
             document.getElementById('player-card2-image').src = getCardImageUrl(card2, suit2);
 
-            document.getElementById('hand-type').innerText = `Hand Type: ${playerHand}`;
+            //document.getElementById('hand-type').innerText = `Hand Type: ${playerHand}`;
             document.getElementById('split-button').disabled = !playerHand.startsWith('pair_');
         }
 
