@@ -1,0 +1,182 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    margin: 0;
+    background: url('https://img.freepik.com/free-vector/flat-design-poker-table-background_23-2151016809.jpg?t=st=1740422419~exp=1740426019~hmac=cb6a3c5c7ff72c04b775a79794214cb33f9b587f16389a33e38c496124e4b306&w=1060');
+    background-size: cover; /* Ensures it covers the full screen */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents repetition */
+    height: 100vh; /* Makes sure it covers the full viewport */
+    color: white; /* Makes all text white */
+}
+    
+
+.left-panel {
+    padding: 20px;
+    background-color: #9e9c9c2f;
+    border-right: 1px solid #ddd;
+}
+
+.main-content {
+    padding: 20px;
+}
+
+.card-image {
+    width: 184px;
+    height: 264px;
+    margin: 5px;
+}
+
+h1, h2, h3, p, span, button, table {
+    color: #ffffff;
+}
+
+
+
+@media (max-width: 768px) {
+
+    .main-content {
+        padding: 10px; /* Reduce padding for a compact view */
+    }
+
+    h1 {
+        font-size: 18px; /* Smaller title */
+    }
+
+    button {
+        font-size: 12px; /* Smaller buttons */
+        padding: 5px;
+    }
+}
+
+@media (max-width: 768px) {
+    #player-cards {
+        display: flex;
+        flex-direction: row !important; /* Ensure they stay side by side */
+        justify-content: center;
+        align-items: center;
+    }
+
+    #player-cards img {
+        max-width: 45%; /* Ensure they fit well */
+    }
+}
+
+#detailed-stats {
+    display: none; /* Stays hidden until toggled */
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+    .left-panel {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 40px; /* Thin bar */
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 5px;
+        font-size: 12px; /* Smaller text */
+        z-index: 1000; /* Ensure it's always on top */
+    }
+
+    .left-panel h2 {
+        display: none; /* Hide the large title */
+    }
+
+    .left-panel p {
+        margin: 0 10px; /* Space out stats */
+        white-space: nowrap; /* Prevent wrapping */
+    }
+
+    .left-panel .btn-primary {
+        font-size: 12px;
+        padding: 3px 8px;
+        height: 30px;
+        line-height: 1;
+    }
+
+    /* Move detailed stats below the game */
+    #detailed-stats {
+        display: none; /* Hidden by default */
+        position: relative;
+        width: 90%;
+        margin: 10px auto;
+        background: white;
+        border: 1px solid #ddd;
+        padding: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .main-content {
+        margin-top: 50px; /* Push content down so it's not covered */
+    }
+}
+
+
+@media (max-width: 768px) {
+    .button-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .button-container button {
+        font-size: 12px;
+        padding: 5px 10px;
+        margin: 2px;
+    }
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Adds space between buttons */
+}
+
+.button-container button {
+    flex: 1; /* Ensures all buttons take up equal width */
+    max-width: 100px; /* Optional: Set a max width if needed */
+    min-width: 80px; /* Ensures they don't get too small */
+    text-align: center;
+}
+
+
+#strategy-chart {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90%;
+    max-height: 90%;
+    z-index: 1000;
+    border: 5px solid #ccc;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+    #strategy-chart {
+        width: 100%;
+        height: 600px; /* Adjust height for mobile */
+    }
+}
+
+
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+}
+
+
+.correct { color: green; font-size: 24px; }
+.fail { color: red; font-size: 24px; }

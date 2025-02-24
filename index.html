@@ -4,443 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blackjack Trainer</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 20px;
-            padding: 20px;
-            background-color: #f4f4f4;
-            margin: 0; /* Remove default body margin */
-        }
-
-        .left-panel {
-            width: 600px;
-            text-align: left;
-            margin-left: 200px; /* Ensure it starts from the left edge */
-        }
-
-        .main-content {
-            width: 1500px;
-            text-align: center;
-        }
-
-        #dealer-card, #player-cards {
-            font-size: 28px;
-            margin: 10px 0;
-            text-align: center; /* Center the text */
-        }
-
-        #hand-type {
-            font-size: 24px;
-            margin: 10px 0;
-        }
-
-        #result {
-            font-size: 24px;
-            margin: 10px 0;
-        }
-
-        .button-container {
-            margin: 20px 0;
-        }
-
-        button {
-            font-size: 18px;
-            padding: 10px;
-            margin: 5px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .correct { color: green; font-size: 24px; }
-        .fail { color: red; font-size: 24px; }
-
-        .card-image {
-            width: 184px;
-            height: 264px;
-            margin: 5px;
-        }
-
-        /* Style for the strategy chart button */
-        #strategy-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 16px;
-            padding: 8px 12px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        /* Style for the strategy chart image */
-        #strategy-chart {
-            display: none; /* Hidden by default */
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            max-width: 90%;
-            max-height: 90%;
-            z-index: 1000;
-            border: 5px solid #ccc;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Overlay to darken the background when the image is shown */
-        #overlay {
-            display: none; /* Hidden by default */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 999;
-        }
-
-        /* Statistics section */
-        #statistics {
-            margin-top: 20px;
-        }
-
-        #detailed-stats {
-            display: none; /* Hidden by default */
-            margin-top: 20px;
-            max-height: 800px; /* Limit height for scrollable container */
-            max-width: 800px;
-            overflow-y: auto; /* Make it scrollable */
-        }
-
-        table {
-            width: 100%;
-            margin: 20px 0;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 10px;
-            border: 1px solid #ccc;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        h1 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-
-        h3 {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        p {
-            font-size: 20px;
-            margin: 10px 0;
-        }
-    </style>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Left Panel for Statistics -->
-    <div class="left-panel">
-        <h2>Statistics</h2>
-        <p>Total Played: <span id="total-played">0</span></p>
-        <p>Overall Correct: <span id="overall-correct">0%</span></p>
-        <p>Streak: <span id="streak">0</span></p>
-        <button onclick="toggleDetailedStats()">Show More</button>
-        <div id="detailed-stats">
-            <h3>Detailed Statistics</h3>
-            <table id="stats-table">
-                <thead>
-                    <tr>
-                        <th>Hand Type</th>
-                        <th>Correct</th>
-                        <th>Total</th>
-                        <th>Accuracy</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Rows will be populated dynamically -->
-                </tbody>
-            </table>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Left Panel for Statistics -->
+            <div class="col-md-3 left-panel">
+                <h2>Statistics</h2>
+                <p>Total Played: <span id="total-played">0</span></p>
+                <p>Overall Correct: <span id="overall-correct">0%</span></p>
+                <p>Streak: <span id="streak">0</span></p>
+                <button class="btn btn-primary" onclick="toggleDetailedStats()">Show More</button>
+                <div id="detailed-stats" class="mt-3">
+                    <h3>Detailed Statistics</h3>
+                    <table id="stats-table" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Hand Type</th>
+                                <th>Correct</th>
+                                <th>Total</th>
+                                <th>Accuracy</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows will be populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-6 main-content text-center">
+                <h1>Blackjack Basic Strategy Trainer</h1>
+                <!-- Strategy Chart Button -->
+                <button id="strategy-button" class="btn btn-secondary">Show Strategy Chart</button>
+
+                <!-- Overlay for darkening the background -->
+                <div id="overlay"></div>
+
+                <!-- Strategy Chart Image -->
+                <!-- Embedded PDF for Strategy Chart -->
+                <iframe id="strategy-chart" src="https://www.blackjackapprenticeship.com/wp-content/uploads/2024/09/ENHC-Basic-Strategy.pdf" width="90%" height="1000px"></iframe>
+
+                <div id="dealer-card" class="my-3">
+                    <img id="dealer-card-image" class="card-image" src="">
+                </div>
+                <div id="player-cards" class="my-3">
+                    <img id="player-card1-image" class="card-image" src="">
+                    <img id="player-card2-image" class="card-image" src="">
+                </div>
+                <!--  <div id="hand-type" class="my-3">Hand Type: ?</div> -->
+                <div class="button-container my-3">
+                    <button class="btn btn-success" onclick="makeDecision('hit')">Hit</button>
+                    <button class="btn btn-warning" onclick="makeDecision('stand')">Stand</button>
+                    <button class="btn btn-info" onclick="makeDecision('double')">Double</button>
+                    <button id="split-button" class="btn btn-danger" onclick="makeDecision('split')" disabled>Split</button>
+                </div>
+                <div id="result" class="my-3"></div>
+            </div>
+            <div class="col-md-3 main-content text-center">
+            </div>
         </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="main-content">
-        <h1>Blackjack Basic Strategy Trainer</h1>
-        <!-- Strategy Chart Button -->
-        <button id="strategy-button">Show Strategy Chart</button>
-
-        <!-- Overlay for darkening the background -->
-        <div id="overlay"></div>
-
-        <!-- Strategy Chart Image -->
-        <img id="strategy-chart" src="https://www.blackjackapprenticeship.com/wp-content/uploads/2018/10/mini-blackjack-strategy-chart.png" alt="Blackjack Strategy Chart">
-
-        <div id="dealer-card"><img id="dealer-card-image" class="card-image" src=""></div>
-        <div id="player-cards"><img id="player-card1-image" class="card-image" src=""> <img id="player-card2-image" class="card-image" src=""></div>
-         <!-- <div id="hand-type">Hand Type: ?</div>  -->
-        <div class="button-container">
-            <button onclick="makeDecision('hit')">Hit</button>
-            <button onclick="makeDecision('stand')">Stand</button>
-            <button onclick="makeDecision('double')">Double</button>
-            <button id="split-button" onclick="makeDecision('split')" disabled>Split</button>
-        </div>
-        <div id="result"></div>
-    </div>
-
-    <div class="left-panel">
-    </div>
-
-    <script>
-        const basicStrategy = {
-            'hard_4': { '2': 'hit', '3': 'hit', '4': 'hit', '5': 'hit', '6': 'hit', '7': 'hit', '8': 'hit', '9': 'hit', '10': 'hit', 'A': 'hit' },
-            'hard_5': { '2': 'hit', '3': 'hit', '4': 'hit', '5': 'hit', '6': 'hit', '7': 'hit', '8': 'hit', '9': 'hit', '10': 'hit', 'A': 'hit' },
-            'hard_6': { '2': 'hit', '3': 'hit', '4': 'hit', '5': 'hit', '6': 'hit', '7': 'hit', '8': 'hit', '9': 'hit', '10': 'hit', 'A': 'hit' },
-            'hard_7': { '2': 'hit', '3': 'hit', '4': 'hit', '5': 'hit', '6': 'hit', '7': 'hit', '8': 'hit', '9': 'hit', '10': 'hit', 'A': 'hit' },
-            'hard_8': { '2': 'hit', '3': 'hit', '4': 'hit', '5': 'hit', '6': 'hit', '7': 'hit', '8': 'hit', '9': 'hit', '10': 'hit', 'A': 'hit' },
-            'hard_9': { '2': 'hit', '3': 'double', '4': 'double', '5': 'double', '6': 'double', '7': 'hit', '8': 'hit', '9': 'hit', '10': 'hit', 'A': 'hit' },
-            'hard_10': { '2': 'double', '3': 'double', '4': 'double', '5': 'double', '6': 'double', '7': 'double', '8': 'double', '9': 'double', '10': 'hit', 'A': 'hit' },
-            'hard_11': { '2': 'double', '3': 'double', '4': 'double', '5': 'double', '6': 'double', '7': 'double', '8': 'double', '9': 'double', '10': 'double', 'A': 'double' },
-            'hard_12': { '2': 'hit', '3': 'hit', '4': 'stand', '5': 'stand', '6': 'stand', '7': 'hit', '8': 'hit', '9': 'hit', '10': 'hit', 'A': 'hit' },
-            'hard_13': { '2': 'stand', '3': 'stand', '4': 'stand', '5': 'stand', '6': 'stand', '7': 'hit', '8': 'hit', '9': 'hit', '10': 'hit', 'A': 'hit' },
-            'hard_14': { '2': 'stand', '3': 'stand', '4': 'stand', '5': 'stand', '6': 'stand', '7': 'hit', '8': 'hit', '9': 'hit', '10': 'hit', 'A': 'hit' },
-            'hard_15': { '2': 'stand', '3': 'stand', '4': 'stand', '5': 'stand', '6': 'stand', '7': 'hit', '8': 'hit', '9': 'hit', '10': 'hit', 'A': 'hit' },
-            'hard_16': { '2': 'stand', '3': 'stand', '4': 'stand', '5': 'stand', '6': 'stand', '7': 'hit', '8': 'hit', '9': 'hit', '10': 'hit', 'A': 'hit' },
-            'hard_17': { '2': 'stand', '3': 'stand', '4': 'stand', '5': 'stand', '6': 'stand', '7': 'stand', '8': 'stand', '9': 'stand', '10': 'stand', 'A': 'stand' },
-            'hard_18': { '2': 'stand', '3': 'stand', '4': 'stand', '5': 'stand', '6': 'stand', '7': 'stand', '8': 'stand', '9': 'stand', '10': 'stand', 'A': 'stand' },
-            'hard_19': { '2': 'stand', '3': 'stand', '4': 'stand', '5': 'stand', '6': 'stand', '7': 'stand', '8': 'stand', '9': 'stand', '10': 'stand', 'A': 'stand' },
-            'hard_20': { '2': 'stand', '3': 'stand', '4': 'stand', '5': 'stand', '6': 'stand', '7': 'stand', '8': 'stand', '9': 'stand', '10': 'stand', 'A': 'stand' },
-            
-            
-            'soft_13': { '2': 'hit', '3': 'hit', '4': 'hit', '5': 'double', '6': 'double', '7': 'hit', '8': 'hit', '9': 'hit', '10': 'hit', 'A': 'hit' },
-            'soft_14': { '2': 'hit', '3': 'hit', '4': 'hit', '5': 'double', '6': 'double', '7': 'hit', '8': 'hit', '9': 'hit', '10': 'hit', 'A': 'hit' },
-            'soft_15': { '2': 'hit', '3': 'hit', '4': 'double', '5': 'double', '6': 'double', '7': 'hit', '8': 'hit', '9': 'hit', '10': 'hit', 'A': 'hit' },
-            'soft_16': { '2': 'hit', '3': 'hit', '4': 'double', '5': 'double', '6': 'double', '7': 'hit', '8': 'hit', '9': 'hit', '10': 'hit', 'A': 'hit' },
-            'soft_17': { '2': 'hit', '3': 'double', '4': 'double', '5': 'double', '6': 'double', '7': 'hit', '8': 'hit', '9': 'hit', '10': 'hit', 'A': 'hit' },
-            'soft_18': { '2': 'double', '3': 'double', '4': 'double', '5': 'double', '6': 'double', '7': 'stand', '8': 'stand', '9': 'hit', '10': 'hit', 'A': 'hit' },
-            'soft_19': { '2': 'stand', '3': 'stand', '4': 'stand', '5': 'stand', '6': 'double', '7': 'stand', '8': 'stand', '9': 'stand', '10': 'stand', 'A': 'stand' },
-            'soft_20': { '2': 'stand', '3': 'stand', '4': 'stand', '5': 'stand', '6': 'stand', '7': 'stand', '8': 'stand', '9': 'stand', '10': 'stand', 'A': 'stand' },
-
-            'pair_2': { '2': 'split', '3': 'split', '4': 'split', '5': 'split', '6': 'split', '7': 'split', '8': 'hit', '9': 'hit', '10': 'hit', 'A': 'hit' },
-            'pair_3': { '2': 'split', '3': 'split', '4': 'split', '5': 'split', '6': 'split', '7': 'split', '8': 'hit', '9': 'hit', '10': 'hit', 'A': 'hit' },
-            'pair_4': { '2': 'hit', '3': 'hit', '4': 'hit', '5': 'split', '6': 'split', '7': 'hit', '8': 'hit', '9': 'hit', '10': 'hit', 'A': 'hit' },
-            'pair_5': { '2': 'double', '3': 'double', '4': 'double', '5': 'double', '6': 'double', '7': 'double', '8': 'double', '9': 'double', '10': 'hit', 'A': 'hit' },
-            'pair_6': { '2': 'split', '3': 'split', '4': 'split', '5': 'split', '6': 'split', '7': 'hit', '8': 'hit', '9': 'hit', '10': 'hit', 'A': 'hit' },
-            'pair_7': { '2': 'split', '3': 'split', '4': 'split', '5': 'split', '6': 'split', '7': 'split', '8': 'hit', '9': 'hit', '10': 'hit', 'A': 'hit' },
-            'pair_8': { '2': 'split', '3': 'split', '4': 'split', '5': 'split', '6': 'split', '7': 'split', '8': 'split', '9': 'split', '10': 'split', 'A': 'split' },
-            'pair_9': { '2': 'split', '3': 'split', '4': 'split', '5': 'split', '6': 'split', '7': 'stand', '8': 'split', '9': 'split', '10': 'stand', 'A': 'stand' },
-            'pair_10': { '2': 'stand', '3': 'stand', '4': 'stand', '5': 'stand', '6': 'stand', '7': 'stand', '8': 'stand', '9': 'stand', '10': 'stand', 'A': 'stand' },
-            'pair_J': { '2': 'stand', '3': 'stand', '4': 'stand', '5': 'stand', '6': 'stand', '7': 'stand', '8': 'stand', '9': 'stand', '10': 'stand', 'A': 'stand' },
-            'pair_Q': { '2': 'stand', '3': 'stand', '4': 'stand', '5': 'stand', '6': 'stand', '7': 'stand', '8': 'stand', '9': 'stand', '10': 'stand', 'A': 'stand' },
-            'pair_K': { '2': 'stand', '3': 'stand', '4': 'stand', '5': 'stand', '6': 'stand', '7': 'stand', '8': 'stand', '9': 'stand', '10': 'stand', 'A': 'stand' },
-            'pair_A': { '2': 'split', '3': 'split', '4': 'split', '5': 'split', '6': 'split', '7': 'split', '8': 'split', '9': 'split', '10': 'split', 'A': 'split' }
-        };
-
-        let streak = 0;
-        let playerHand, dealerCard;
-
-        // Statistics tracking
-        let totalAttempts = 0;
-        let totalCorrect = 0;
-        const categorizedStats = {};
-
-        // Initialize categorized stats
-        for (const handType in basicStrategy) {
-            categorizedStats[handType] = { correct: 0, total: 0 };
-        }
-
-        const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
-
-        function getRandomCard() {
-            const cards = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'];
-            return cards[Math.floor(Math.random() * cards.length)];
-        }
-
-        function getRandomSuit() {
-            return suits[Math.floor(Math.random() * suits.length)];
-        }
-
-        function getCardImageUrl(card, suit) {
-            const cardMap = {
-                'J': 'jack',
-                'Q': 'queen',
-                'K': 'king',
-                'A': 'ace',
-                '10': '10',
-                '9': '9',
-                '8': '8',
-                '7': '7',
-                '6': '6',
-                '5': '5',
-                '4': '4',
-                '3': '3',
-                '2': '2'
-            };
-            const cardName = cardMap[card];
-            return `https://www.tekeye.uk/playing_cards/images/svg_playing_cards/fronts/${suit}_${cardName}.svg`;
-        }
-
-        function categorizeHand(card1, card2) {
-            // Convert J, Q, K to 10
-            const getCardValue = (card) => {
-                if (card === 'J' || card === 'Q' || card === 'K') return 10;
-                if (card === 'A') return 11;
-                return card; // Numeric cards (2-10)
-            };
-        
-            // Check for Blackjack (A + 10-value card)
-            const isBlackjack = (card1 === 'A' && getCardValue(card2) === 10) || 
-                                (card2 === 'A' && getCardValue(card1) === 10);
-        
-            // If Blackjack, return null to indicate regeneration is needed
-            if (isBlackjack) {
-                return null;
-            }
-        
-            // Check for pairs
-            if (card1 === card2) return `pair_${card1}`;
-        
-            // Calculate total value
-            const value1 = getCardValue(card1);
-            const value2 = getCardValue(card2);
-            const total = value1 + value2;
-        
-            // Determine hand type
-            if ((card1 === 'A' || card2 === 'A')) {
-                return `soft_${total}`;
-            } else {
-                return `hard_${total}`;
-            }
-        }
-
-        function categorizeDealerHand(dealerCard) {
-            if (dealerCard === 'J' || dealerCard === 'Q' || dealerCard === 'K') return 10;
-            else return dealerCard;
-        }
-
-        function generateHand() {
-            let card1, card2, dealerCard;
-            let playerHand;
-
-            // Keep regenerating the hand until it's not a Blackjack
-            do {
-                card1 = getRandomCard();
-                card2 = getRandomCard();
-                dealerCard = getRandomCard();
-                
-                playerHand = categorizeHand(card1, card2);
-            } while (playerHand === null); // Regenerate if Blackjack
-
-            const suit1 = getRandomSuit();
-            const suit2 = getRandomSuit();
-            const dealerSuit = getRandomSuit();
-
-            // Update global variables
-            window.playerHand = playerHand; // Ensure this is accessible globally
-            window.dealerHand = categorizeDealerHand(dealerCard); // Ensure this is accessible globally
-
-            // Update the DOM
-            document.getElementById('dealer-card-image').src = getCardImageUrl(dealerCard, dealerSuit);
-            document.getElementById('player-card1-image').src = getCardImageUrl(card1, suit1);
-            document.getElementById('player-card2-image').src = getCardImageUrl(card2, suit2);
-
-            //document.getElementById('hand-type').innerText = `Hand Type: ${playerHand}`;
-            document.getElementById('split-button').disabled = !playerHand.startsWith('pair_');
-        }
-
-        function makeDecision(choice) {
-            // Ensure playerHand and dealerHand are defined
-            if (!window.playerHand || !window.dealerHand) {
-                console.error("playerHand or dealerHand is not defined!");
-                return;
-            }
-        
-            const correctAnswer = basicStrategy[window.playerHand][window.dealerHand]; // Use global variables
-            totalAttempts++;
-            categorizedStats[window.playerHand].total++;
-        
-            if (basicStrategy[window.playerHand] && basicStrategy[window.playerHand][window.dealerHand] === choice) {
-                document.getElementById('result').innerHTML = '<span class="correct">✔ Correct!</span>';
-                streak++;
-                totalCorrect++;
-                categorizedStats[window.playerHand].correct++;
-            } else {
-                document.getElementById('result').innerHTML = `<span class="fail">✘ Fail (Correct: ${correctAnswer})</span>`;
-                streak = 0;
-            }
-        
-            document.getElementById('streak').innerText = streak;
-            document.getElementById('total-played').innerText = totalAttempts;
-            updateStatistics();
-            generateHand();
-        }
-
-        function updateStatistics() {
-            // Update overall correct percentage
-            const overallCorrectPercentage = ((totalCorrect / totalAttempts) * 100).toFixed(2);
-            document.getElementById('overall-correct').innerText = `${overallCorrectPercentage}%`;
-
-            // Update detailed stats table
-            const tableBody = document.querySelector('#stats-table tbody');
-            tableBody.innerHTML = '';
-            for (const handType in categorizedStats) {
-                const { correct, total } = categorizedStats[handType];
-                const accuracy = total === 0 ? '0.00%' : `${((correct / total) * 100).toFixed(2)}%`;
-                const row = `
-                    <tr>
-                        <td>${handType}</td>
-                        <td>${correct}</td>
-                        <td>${total}</td>
-                        <td>${accuracy}</td>
-                    </tr>
-                `;
-                tableBody.innerHTML += row;
-            }
-        }
-
-        function toggleDetailedStats() {
-            const detailedStats = document.getElementById('detailed-stats');
-            detailedStats.style.display = detailedStats.style.display === 'none' ? 'block' : 'none';
-        }
-
-        // Toggle strategy chart visibility
-        document.getElementById('strategy-button').addEventListener('click', () => {
-            const chart = document.getElementById('strategy-chart');
-            const overlay = document.getElementById('overlay');
-            if (chart.style.display === 'none') {
-                chart.style.display = 'block';
-                overlay.style.display = 'block';
-            } else {
-                chart.style.display = 'none';
-                overlay.style.display = 'none';
-            }
-        });
-
-        // Close the chart when clicking outside the image
-        document.getElementById('overlay').addEventListener('click', () => {
-            document.getElementById('strategy-chart').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';
-        });
-
-        generateHand();
-    </script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <!-- Custom JS -->
+    <script src="basicStrategy.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
