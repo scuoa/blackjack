@@ -178,5 +178,5 @@ h1, h2, h3, p, span, button, table {
 }
 
 
-.correct { color: green; font-size: 24px; }
+.correct { color: rgb(24, 223, 24); font-size: 24px; }
 .fail { color: red; font-size: 24px; }
