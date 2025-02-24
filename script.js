@@ -200,7 +200,6 @@ function toggleDetailedStats() {
 }
 
 
-// Toggle strategy chart visibility
 document.getElementById('strategy-button').addEventListener('click', () => {
     const chart = document.getElementById('strategy-chart');
     const overlay = document.getElementById('overlay');
@@ -214,10 +213,11 @@ document.getElementById('strategy-button').addEventListener('click', () => {
     }
 });
 
-// Close the PDF when clicking outside (optional)
+// Close when clicking outside
 document.getElementById('overlay').addEventListener('click', () => {
     document.getElementById('strategy-chart').style.display = 'none';
     document.getElementById('overlay').style.display = 'none';
 });
+
 
 generateHand();
